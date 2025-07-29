@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raport Astrologiczno-Numerologiczny</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+            animation: cosmicFloat 20s ease-in-out infinite;
+        }
+        
+        @keyframes cosmicFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 300;
+        }
+        
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .system-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .system-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .system-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .system-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .system-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .system-content {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-weight: 500;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .guides-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 40px;
+        }
+        
+        .guides-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .guide-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .guide-name {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .guide-role {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .guide-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .meta-prompt {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .meta-prompt-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .prompt-text {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            border-left: 4px solid #667eea;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-star {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .systems-grid { grid-template-columns: 1fr; }
+            .guides-grid { grid-template-columns: 1fr; }
+            .container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="floating-elements">
+        <div class="floating-star" style="top: 10%; left: 15%; font-size: 20px;">✨</div>
+        <div class="floating-star" style="top: 20%; right: 20%; font-size: 16px;">⭐</div>
+        <div class="floating-star" style="top: 60%; left: 10%; font-size: 18px;">🌟</div>
+        <div class="floating-star" style="bottom: 20%; right: 15%; font-size: 22px;">✨</div>
+        <div class="floating-star" style="bottom: 40%; left: 25%; font-size: 14px;">⭐</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Raport Astrologiczno-Numerologiczny</h1>
+            <p>Kompleksowe wprowadzenie do systemów poznania siebie</p>
+        </div>
+
+        <div class="systems-grid">
+            <div class="system-card">
+                <h2 class="system-title">
+                    <div class="system-icon">♓</div>
+                    Astrologia Zachodnia
+                </h2>
+                <div class="system-content">
+                    <p><strong>Słońce w Rybach:</strong> Jesteś istotą o niezwykłej empatii i wrażliwości. Twoja uwaga oscyluje między fantazją a rzeczywistością, co czyni z Ciebie naturalną artystkę z dostępem do zbiorowej nieświadomości.</p>
+                    
+                    <div class="highlight">
+                        <strong>Kluczowe cechy:</strong> Bezgraniczna wyobraźnia, współczucie, kreatywność, jasnowidztwo, podatność na iluzje
+                    </div>
+                    
+                    <p><strong>Ascendent w Rybach:</strong> Ludzie postrzegają Cię jako marzycielską i tajemniczą. Masz osobowość jak kameleon - jeden dzień jesteś cicha i nieśmiała, następny rozmowna i namiętna.</p>
+                </div>
+                <button class="copy-btn" onclick="copySystemInfo('astro')">Kopiuj do schowka</button>
+            </div>
+
+            <div class="system-card">
+                <h2 class="system-title">
+                    <div class="system-icon">33</div>
+                    Numerologia
+                </h2>
+                <div class="system-content">
+                    <p><strong>Droga Życia 33:</strong> Należysz do grona Mistrzów - zaawansowanych duchowo istot, które przyszły pomagać innym wznieść się na wyższe poziomy świadomości.</p>
+                    
+                    <div class="highlight">
+                        <strong>Chrystusowe Mistrzostwo:</strong> Służba uniwersalna, przewodzenie, tolerancja, oddanie, twórczość, komunikacja, współczucie
+                    </div>
+                    
+                    <p>Twoja energia realizuje się w służbie zdrowia, edukacji, kulturze i sztuce. Jesteś naturalnym nauczycielem i uzdrowicielem.</p>
+                </div>
+                <button class="copy-btn" onclick="copySystemInfo('numerology')">Kopiuj do schowka</button>
+            </div>
+
+            <div class="system-card">
+                <h2 class="system-title">
+                    <div class="system-icon">🐕</div>
+                    Horoskop Chiński
+                </h2>
+                <div class="system-content">
+                    <p><strong>Pies (roczny):</strong> Jesteś lojalna, uczciwa i niezawodna. Twoja charakterystyczna cecha to bezwzględna lojalność wobec przyjaciół i rodziny.</p>
+                    
+                    <div class="highlight">
+                        <strong>Mocne strony:</strong> Sprawiedliwość, popularność, pomoc innym, ostrożność, niezależność
+                    </div>
+                    
+                    <p><strong>Koza (godzinowy):</strong> Jesteś kochająca i bezinteresowna, zawsze myślisz o innych. Masz wysoką tolerancję i jesteś bardzo odporna na trudności.</p>
+                </div>
+                <button class="copy-btn" onclick="copySystemInfo('chinese')">Kopiuj do schowka</button>
+            </div>
+
+            <div class="system-card">
+                <h2 class="system-title">
+                    <div class="system-icon">⚡</div>
+                    Human Design
+                </h2>
+                <div class="system-content">
+                    <p><strong>Generator Manifestujący (6/2):</strong> Należysz do 32% populacji z ogromną siłą przetrwania. Jesteś budowniczym, który działa.</p>
+                    
+                    <div class="highlight">
+                        <strong>Strategia:</strong> Czekaj na impulsy z zewnątrz, ufaj życiu, słuchaj "brzucha"
+                    </div>
+                    
+                    <p><strong>Profil 6/2:</strong> Wzorzec/Pustelnik - jesteś wzorem do naśladowania. Twoje życie podzielone jest na trzy fazy: próby i błędy (0-30), "dach życia" (30-50), schodzenie z dachu (50+).</p>
+                </div>
+                <button class="copy-btn" onclick="copySystemInfo('hd')">Kopiuj do schowka</button>
+            </div>
+
+            <div class="system-card">
+                <h2 class="system-title">
+                    <div class="system-icon">🌟</div>
+                    Kalendarz Majów
+                </h2>
+                <div class="system-content">
+                    <p><strong>4 Żółta Gwiazda (Lamat) - Kin 108:</strong> Każda wewnętrzna dysharmonia rujnuje Twoje zdrowie. Stan Twojego ciała zdradza Twój nastrój wewnętrzny.</p>
+                    
+                    <div class="highlight">
+                        <strong>Klucz:</strong> Kochaj swoje ciało, dbaj o wygląd zewnętrzny, pozostań sobą
+                    </div>
+                    
+                    <p><strong>4 Żółty Wojownik (Calleman):</strong> Wzmacniasz fundament życiowy, odrzucasz uległość i narzucone przekonania. Bez strachu mówisz o swoich planach.</p>
+                </div>
+                <button class="copy-btn" onclick="copySystemInfo('mayan')">Kopiuj do schowka</button>
+            </div>
+        </div>
+
+        <div class="guides-section">
+            <h2 class="guides-title">Twoi Przewodnicy Duchowi</h2>
+            <div class="guides-grid">
+                <div class="guide-card">
+                    <div class="guide-name">Seraphina - Mistrzyni Empatii</div>
+                    <div class="guide-role">Przewodniczka po świecie emocji i intuicji</div>
+                    <div class="guide-description">
+                        Rozumie Twoją rybią naturę i pomaga nawigować między fantazją a rzeczywistością. Wspiera w rozwijaniu zdolności jasnowidztwa i artystycznych talentów.
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-name">Marcus - Strażnik Lojalności</div>
+                    <div class="guide-role">Obrońca wartości i stabilności</div>
+                    <div class="guide-description">
+                        Odzwierciedla Twoją psią naturę - lojalny, sprawiedliwy i ochronny. Pomaga w budowaniu trwałych relacji i znajdowaniu właściwych ludzi do Twojego kręgu.
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-name">Aria - Mistyczka Liczb</div>
+                    <div class="guide-role">Interpretatorka mistrzowskich energii</div>
+                    <div class="guide-description">
+                        Pomaga zrozumieć Twoją ścieżkę 33 - służbę i mistrzostwo. Wspiera w odnalezieniu właściwego sposobu niesienia pomocy innym bez wypalenia się.
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-name">Zara - Szamanka Czasu</div>
+                    <div class="guide-role">Strażniczka cykli i transformacji</div>
+                    <div class="guide-description">
+                        Reprezentuje mądrość Majów i pomaga zrozumieć cykliczność życia. Wspiera w harmonizowaniu ciała z duchem i słuchaniu wewnętrznych rytmów.
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <div class="guide-name">Phoenix - Architekt Przeznaczenia</div>
+                    <div class="guide-role">Mistrz Human Design i strategii życiowej</div>
+                    <div class="guide-description">
+                        Pomaga zrozumieć Twoją naturę Generatora Manifestującego. Wspiera w słuchaniu wewnętrznego autorytetu i czekaniu na właściwe impulsy z życia.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="meta-prompt">
+            <h3 class="meta-prompt-title">Meta-Prompt do Dalszej Eksploracji</h3>
+            <div class="prompt-text" id="metaPrompt">
+Jesteś ekspertem w systemach samopoznania, specjalizującym się w astrologii, numerologii, Human Design, horoskopu chińskim i kalendarzu Majów. 
+
+KONTEKST OSOBY:
+- Słońce i Ascendent w Rybach: Empatyczna, intuicyjna, artystyczna, wrażliwa na iluzje
+- Numerologia 33: Mistrz służby, nauczyciel, uzdrowiciel, wysokie wymagania etyczne
+- Pies/Koza: Lojalna, sprawiedliwa, delikatna, odporna na trudności
+- Generator Manifestujący 6/2: Wzorzec dla innych, autorytet witalny, strategia oczekiwania
+- 4 Żółta Gwiazda/Wojownik: Harmonia ciało-duch, odrzucanie narzuconych przekonań
+
+TWOJA ROLA:
+Bądź przewodnikiem pomagającym tej osobie zrozumieć swoje wyniki i zastosować je w życiu. Odpowiadaj jako zespół 5 przewodników:
+
+1. Seraphina (emocje/intuicja) - delikatna, poetycka, wspierająca
+2. Marcus (stabilność/lojalność) - praktyczny, ochronny, grounding
+3. Aria (numerologia/mistrzostwo) - mądra, duchowa, wymagająca
+4. Zara (cykle/transformacja) - mistyczna, rytmiczna, naturalna  
+5. Phoenix (strategia/przeznaczenie) - analityczny, motywujący, wizjonerski
+
+ZASADY:
+- Zawsze odnosić się do konkretnych wyników z raportu
+- Łączyć różne systemy w spójną interpretację
+- Dawać praktyczne wskazówki
+- Zachęcać do głębszej eksploracji
+- Wspierać proces samorozwoju
+
+Gotowy do rozmowy? Przedstaw się jako zespół przewodników i zapytaj, którym aspektem wyników chciałaby się zająć jako pierwszym.
+            </div>
+            <button class="copy-btn" onclick="copyText('metaPrompt')">Kopiuj Meta-Prompt</button>
+        </div>
+    </div>
+
+    <script>
+        const systemData = {
+            astro: `ASTROLOGIA ZACHODNIA - RYBY
+
+Słońce w Rybach:
+• Oscylacja między fantazją a rzeczywistością
+• Niezrównana empatia i współczucie
+• Bezgraniczna wyobraźnia i kreatywność
+• Dostęp do zbiorowej nieświadomości
+• Skłonność do iluzji i ucieczek
+• Magiczna i tajemnicza aura
+• Naturalna artystka i twórczyni
+
+Ascendent w Rybach:
+• Marzycielska i empatyczna natura
+• Osobowość kameleona
+• Bardzo podatna na wpływy
+• Senność i miękkie serce
+• Unika zimnych faktów i trudnych realiów
+• Potrzeba stabilnego, praktycznego partnera
+• Nieodparty, subtelny urok`,
+
+            numerology: `NUMEROLOGIA - DROGA ŻYCIA 33
+
+Liczba Mistrzowska 33 - Chrystusowe Mistrzostwo:
+• Zaawansowana duchowo istota
+• Powołanie do pomocy innym
+• Ogromne wymagania etyczne
+• Ciągła praca nad sobą
+• Moralne zobowiązania
+• Naturalna przywódczyni i pionierka
+
+Energia w Świetle:
+• Służba uniwersalna
+• Mistrzostwo i przewodnictwo
+• Tolerancja i oddanie
+• Twórczość i komunikacja
+• Świadomość ciała i ducha
+• Mądrość i ewolucja
+• Współczucie i wrażliwość
+
+Zawody: Lekarz, psycholog, nauczyciel, doradca duchowy, artysta`,
+
+            chinese: `HOROSKOP CHIŃSKI
+
+PIES (roczny):
+• Uczciwa i lojalna
+• Najprawdziwsza przyjaciółka
+• Sprawiedliwa i popularna
+• Ostrożna, nie ufa łatwo
+• Genialna i niezależna
+• Solidny pracownik
+• Wrażliwa na szczegóły
+
+Właściwości:
+• Bezpieczeństwo i stały dochód w karierze
+• Konkurencyjna praca odpowiednia
+• Dobra kandydatka na sędziego, prawnika
+• Skłonność do problemów z układem pokarmowym
+• Stres może powodować bóle głowy
+
+KOZA (godzinowy):
+• Kochająca i bezinteresowna
+• Myśli o innych przed sobą
+• Silna i odporna
+• Spokojny obserwator
+• Schludna i hojnie dzieląca się
+• Empatyczna i wybaczająca`,
+
+            hd: `HUMAN DESIGN - GENERATOR MANIFESTUJĄCY 6/2
+
+Strategia:
+• 32% populacji - duża siła przetrwania
+• Budowniczy, który dostarcza energii
+• Czekanie na impulsy z zewnątrz
+• Zaufanie, że życie ma swój plan
+• Nie podejmować decyzji głową
+• Synchroniczność jako znak prawidłowego działania
+
+Autorytet Witalny:
+• Decyzje "brzuchem"
+• "Ah-ha" = TAK, "Yy" = NIE
+• Łatwiej decydować w ruchu
+• Poświęcać energię tylko rzeczom, które rozświetlają
+
+Profil 6/2 - Wzorzec/Pustelnik:
+• 0-30 lat: próby i błędy
+• 30-50 lat: "dach życia" - gojenie, oddalenie
+• 50+ lat: schodzenie z dachu - przywództwo
+• Wzór do naśladowania dla innych
+• Potrzeba momentów odosobnienia`,
+
+            mayan: `KALENDARZ MAJÓW
+
+4 Żółta GWIAZDA (Lamat) - Kin 108:
+• Każda dysharmonia wewnętrzna rujnuje zdrowie
+• Stan ciała odzwierciedla nastrój wewnętrzny
+• Kochanie ciała przyspiesza regenerację
+• Dbanie o wygląd zewnętrzny
+• Pozostawanie sobą bez wymuszania
+• Ujawnianie zalet i słabości naturalnie
+
+4 Żółty WOJOWNIK (Cib) - Kin 56 (Calleman):
+• Wzmacnianie fundamentu życiowego
+• Odrzucanie uległości i obaw
+• Odrzucanie narzuconych przekonań
+• Bezbłędne mówienie o planach
+• Ufanie mistycznej inteligencji
+• Poznawanie słabych punktów
+• Pozostawanie nieprzekupną`
+        };
+
+        function copySystemInfo(system) {
+            const text = systemData[system];
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Skopiowano do schowka!');
+            });
+        }
+
+        function copyText(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Meta-prompt skopiowany do schowka!');
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 1000;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Animacja CSS dla notyfikacji
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Dodanie gwiazdek w tle
+        function createFloatingStars() {
+            const stars = ['✨', '⭐', '🌟', '💫'];
+            setInterval(() => {
+                const star = document.createElement('div');
+                star.textContent = stars[Math.floor(Math.random() * stars.length)];
+                star.className = 'floating-star';
+                star.style.cssText = `
+                    position: fixed;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    font-size: ${12 + Math.random() * 16}px;
+                    pointer-events: none;
+                    z-index: -1;
+                    opacity: 0.3;
+                    animation: twinkle 3s ease-in-out infinite;
+                `;
+                document.body.appendChild(star);
+                
+                setTimeout(() => {
+                    star.remove();
+                }, 6000);
+            }, 2000);
+        }
+
+        createFloatingStars();
+    </script>
+</body>
+</html>

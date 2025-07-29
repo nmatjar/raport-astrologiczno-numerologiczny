@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raport Astrologiczno-Numerologiczny - Wybór Wersji</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .version-selector {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 300;
+        }
+        
+        .versions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .version-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .version-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+        
+        .version-card.current {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .version-card.current .version-number {
+            color: white;
+        }
+        
+        .version-card.current .version-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .version-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .version-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .version-card.current .version-title {
+            color: white;
+        }
+        
+        .version-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .version-features {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .version-features li {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .version-features li:before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-card.current .version-features li {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .version-card.current .badge {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            color: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .versions-grid { grid-template-columns: 1fr; }
+            .version-selector { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="version-selector">
+        <div class="header">
+            <h1>Raport Astrologiczno-Numerologiczny</h1>
+            <p>Wybierz wersję aplikacji</p>
+        </div>
+        
+        <div class="versions-grid">
+            <a href="versions/v1.0/index.html" class="version-card">
+                <div class="badge">Stabilna</div>
+                <div class="version-number">v1.0</div>
+                <div class="version-title">Wersja Podstawowa</div>
+                <div class="version-description">
+                    Pierwsza wersja aplikacji z podstawowymi funkcjonalnościami i kompletną analizą 5 systemów poznania siebie.
+                </div>
+                <ul class="version-features">
+                    <li>5 systemów poznania siebie</li>
+                    <li>Przewodnicy duchowi</li>
+                    <li>Meta-prompt do AI</li>
+                    <li>Responsywny design</li>
+                    <li>Funkcje kopiowania</li>
+                </ul>
+            </a>
+            
+            <a href="index.html" class="version-card current">
+                <div class="badge">Najnowsza</div>
+                <div class="version-number">v2.0</div>
+                <div class="version-title">Enhanced Edition</div>
+                <div class="version-description">
+                    Ulepszona wersja z 5 kluczowymi udoskonaleniami zwiększającymi interaktywność i funkcjonalność aplikacji.
+                </div>
+                <ul class="version-features">
+                    <li>Smart Navigation + Progress Bar</li>
+                    <li>Interactive Tooltips</li>
+                    <li>Multi-Format Export & Sharing</li>
+                    <li>Theme Switcher</li>
+                    <li>Smart Meta-Prompt Generator</li>
+                </ul>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>💡 <strong>Rekomendacja:</strong> Użyj najnowszej wersji v2.0 dla najlepszego doświadczenia</p>
+            <a href="https://github.com/nmatjar/raport-astrologiczno-numerologiczny" class="github-link" target="_blank">
+                <span>📂</span> Zobacz kod na GitHub
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Automatyczne przekierowanie do najnowszej wersji po 10 sekundach (opcjonalnie)
+        // setTimeout(() => {
+        //     window.location.href = 'index.html';
+        // }, 10000);
+    </script>
+</body>
+</html>

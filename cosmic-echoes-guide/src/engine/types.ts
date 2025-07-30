@@ -25,6 +25,8 @@ export interface ComprehensiveAnalysis {
   astrology?: AnalysisResult;
   humanDesign?: AnalysisResult;
   chineseZodiac?: AnalysisResult;
+  biorhythms?: AnalysisResult;
+  elementalBalance?: AnalysisResult;
   // ... inne systemy
 }
 

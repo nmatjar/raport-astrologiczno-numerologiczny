@@ -5,8 +5,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Download, Share2, Mail, MessageCircle, QrCode, FileText, FileJson } from "lucide-react";
+import { Download, Share2, Mail, MessageCircle, QrCode, FileText, FileJson, Code2 } from "lucide-react";
 import { getProfiles } from "@/services/profileManager";
+import { exportProfileCoder34ToFile } from "@/services/profileCoderExport";
 
 export function ExportHub() {
   const [isExporting, setIsExporting] = useState(false);
@@ -70,6 +71,20 @@ export function ExportHub() {
     toast.success("Profil JSON został pomyślnie wyeksportowany!", {
       description: "Plik został zapisany na Twoim urządzeniu.",
     });
+  };
+
+  const exportProfileCoder34 = () => {
+    try {
+      exportProfileCoder34ToFile();
+      toast.success("🚀 Profil ProfileCoder 3.4 wyeksportowany!", {
+        description: "Format zgodny ze standardem interoperacyjności",
+        duration: 4000
+      });
+    } catch (error) {
+      toast.error("Błąd eksportu ProfileCoder 3.4", {
+        description: error instanceof Error ? error.message : "Nieznany błąd",
+      });
+    }
   };
 
   const shareWhatsApp = () => {
@@ -181,7 +196,7 @@ Pozdrawiam kosmicznie,
         )}
 
         {/* Export Options */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3 mb-4">
           {/* PDF Export */}
           <Dialog>
             <DialogTrigger asChild>
@@ -205,7 +220,7 @@ Pozdrawiam kosmicznie,
                 <div className="bg-cosmic-purple/10 border border-cosmic-purple/30 rounded-lg p-4">
                   <h4 className="font-medium text-cosmic-purple mb-2">PDF będzie zawierać:</h4>
                   <ul className="text-sm text-cosmic-starlight space-y-1">
-                    <li>• Wszystkie 5 systemów samopoznania</li>
+                    <li>• Wszystkie 7 systemów samopoznania</li>
                     <li>• Cosmic design i kolorystykę</li>
                     <li>• QR code do aplikacji</li>
                     <li>• Twoje spersonalizowane dane</li>
@@ -229,17 +244,67 @@ Pozdrawiam kosmicznie,
             <QrCode className="h-6 w-6 text-cosmic-teal" />
             <span className="text-sm">QR Code</span>
           </Button>
+        </div>
 
-          {/* JSON Export */}
-          <Button 
-            variant="outline" 
-            onClick={exportProfileToJson}
-            className="flex flex-col items-center justify-center gap-2 h-auto py-4 bg-cosmic-blue/10 border-cosmic-blue/30 hover:bg-cosmic-blue/20"
-            disabled={isExporting}
-          >
-            <FileJson className="h-6 w-6 text-cosmic-blue" />
-            <span className="text-sm">JSON</span>
-          </Button>
+        {/* Advanced Export Options */}
+        <div className="space-y-3">
+          <h4 className="text-sm font-medium text-cosmic-gold">Formaty eksportu danych:</h4>
+          <div className="grid grid-cols-2 gap-3">
+            {/* JSON Export */}
+            <Button 
+              variant="outline" 
+              onClick={exportProfileToJson}
+              className="flex flex-col items-center justify-center gap-2 h-auto py-4 bg-cosmic-blue/10 border-cosmic-blue/30 hover:bg-cosmic-blue/20"
+              disabled={isExporting}
+            >
+              <FileJson className="h-6 w-6 text-cosmic-blue" />
+              <span className="text-sm">JSON</span>
+            </Button>
+
+            {/* ProfileCoder 3.4 Export */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  className="flex flex-col items-center justify-center gap-2 h-auto py-4 bg-gradient-to-br from-cosmic-gold/10 to-cosmic-purple/10 border-cosmic-gold/30 hover:from-cosmic-gold/20 hover:to-cosmic-purple/20"
+                  disabled={isExporting}
+                >
+                  <Code2 className="h-6 w-6 text-cosmic-gold" />
+                  <span className="text-sm">ProfileCoder 3.4</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>🚀 Eksport ProfileCoder 3.4</DialogTitle>
+                  <DialogDescription>
+                    Wyeksportuj profil w standardowym formacie interoperacyjności
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-br from-cosmic-gold/10 to-cosmic-purple/10 border border-cosmic-gold/30 rounded-lg p-4">
+                    <h4 className="font-medium text-cosmic-gold mb-2">ProfileCoder 3.4 zawiera:</h4>
+                    <ul className="text-sm text-cosmic-starlight space-y-1">
+                      <li>• 🔢 Numerologia (LP, EX, SU)</li>
+                      <li>• 🌌 Astrologia (SS, AS, MC, PL, HO, ASP)</li>
+                      <li>• 🐉 Zodiak Chiński (AN, EL, POL)</li>
+                      <li>• 🧬 Human Design (TY, PR, AU, CEN, CHA, GAT)</li>
+                      <li>• 🏛️ Kalendarz Majów (SI, TO, WAV, DEST)</li>
+                      <li>• 🧬⏰ Bio-Rytmy (PH, EM, IN, CYC)</li>
+                      <li>• ☯️🌳 Równowaga Żywiołów (FIR, EAR, AIR, WAT, ETH)</li>
+                      <li>• 📊 Metadane i interpretacje</li>
+                    </ul>
+                    <div className="mt-3 p-2 bg-cosmic-gold/20 rounded text-xs text-cosmic-gold">
+                      ✨ Format zgodny z innymi systemami ProfileCoder 3.4
+                    </div>
+                  </div>
+                  <Button onClick={exportProfileCoder34} className="w-full" disabled={isExporting}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Eksportuj ProfileCoder 3.4
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
 
         {/* Social Sharing */}
